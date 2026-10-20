@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<!--
+  swiss-slide — IBM Carbon + Swiss International Style HTML slide decks
+  https://github.com/nrenvo/swiss-slide
+
+  MIT License
+
+  Copyright (c) 2026 nrenvo
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="swiss-slide · https://github.com/nrenvo/swiss-slide">
+<link rel="license" href="https://github.com/nrenvo/swiss-slide/blob/main/LICENSE">
+<title>Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fafaf8;
+    --ink:#0a0a0a;
+    --grey-1:#f0f0ee;
+    --grey-2:#d4d4d2;
+    --grey-3:#737373;
+    --accent:#002FA7;
+    --accent-on:#ffffff;
+    --accent-bright:#5B7BFF;
+    --text-primary:#0a0a0a;
+    --text-secondary:#525252;
+    --text-helper:#737373;
+    --text-placeholder:#a3a3a3;
+    --text-on-color:#ffffff;
+    --border-subtle:#e0e0e0;
+    --border-strong:#a3a3a3;
+    --sans:"Inter","Helvetica Neue","Helvetica","Arial",system-ui,-apple-system,sans-serif;
+    --sans-zh:"PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans SC","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    --mono:"JetBrains Mono","SF Mono","Consolas","Courier New",ui-monospace,monospace;
+    --pad-x:5.5vw;
+    --pad-y:5.5vh;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans),var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  #deck{position:fixed;inset:0;display:flex;flex-wrap:nowrap;z-index:1;transition:transform .72s cubic-bezier(.77,0,.175,1);will-change:transform}
+  .slide{position:relative;flex:0 0 100vw;width:100vw;height:100vh;overflow:hidden;background:var(--paper);color:var(--ink)}
+  .slide.accent{background:var(--accent);color:#fff}
+  .slide.dark{background:var(--ink);color:var(--paper)}
+  .slide.grey{background:var(--grey-1)}
+  .slide.light{background:var(--paper)}
+  .canvas-card{position:relative;isolation:isolate;width:100vw;height:100vh;padding:var(--pad-y) var(--pad-x);display:flex;flex-direction:column;overflow:hidden;background:var(--paper);color:var(--ink)}
+  .slide.accent .canvas-card{background:var(--accent);color:#fff}
+  .slide.dark .canvas-card{background:var(--ink);color:var(--paper)}
+  .slide.grey .canvas-card{background:var(--grey-1)}
+  .slide.split .canvas-card{padding:0}
+  .slide.accent .canvas-card::before,
+  .half.b-accent::before{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.52;
+    background-image:
+      radial-gradient(circle,rgba(255,255,255,.62) 1px,transparent 1.25px),
+      linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+    background-size:28px 28px,112px 112px,112px 112px;
+    animation:drift 26s linear infinite;
+  }
+  @keyframes drift{from{background-position:0 0,0 0,0 0}to{background-position:28px 28px,0 0,0 0}}
+  @media (prefers-reduced-motion:reduce){.canvas-card::before,.half.b-accent::before{animation:none}#deck{transition:none}}
+  canvas.ascii-bg,canvas.bg{display:none}
+  .chrome-min{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-start;gap:2vw;font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-helper);flex:0 0 auto;margin-bottom:clamp(24px,4.5vh,56px)}
+  .slide.accent .chrome-min,.half.b-accent .chrome-min{color:rgba(255,255,255,.62)}
+  .chrome-min .l,.chrome-min .r{white-space:nowrap}
+  .t-meta{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .lead{font-size:clamp(15px,1.08vw,19px);line-height:1.55;max-width:56ch;opacity:.84}
+  .split-half{display:grid;grid-template-columns:1fr 1fr;height:100%}
+  .half{position:relative;isolation:isolate;display:flex;flex-direction:column;overflow:hidden}
+  .b-accent{background:var(--accent);color:#fff}
+  .card-fill{background:var(--grey-1);color:var(--ink)}
+  .card-accent{background:var(--accent);color:var(--accent-on)}
+  .tag{display:inline-block;border:1px solid var(--border-strong);padding:.5em .7em;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);white-space:nowrap}
+  .stat-card{display:flex;flex-direction:column;gap:1.2vh;border-top:1px solid var(--border-strong);padding-top:2vh}
+  .stat-card.accent-top{border-top:2px solid var(--accent)}
+  .stat-card.thin{border-top:1px solid var(--border-strong)}
+  .stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-helper)}
+  .stat-nb{font-size:clamp(64px,7.4vw,140px);font-weight:200;line-height:.82;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+  .stat-unit{font-size:.22em;font-weight:400;letter-spacing:0;color:var(--text-secondary);margin-left:.2em}
+  .stat-note{font-size:clamp(13px,.9vw,16px);line-height:1.5;color:var(--text-secondary)}
+  #dots{position:fixed;left:50%;bottom:2.4vh;transform:translateX(-50%);display:flex;gap:10px;z-index:20}
+  #dots button{width:6px;height:6px;border:0;padding:0;background:rgba(0,0,0,.24);cursor:pointer}
+  #dots button.active{background:var(--accent)}
+  body.on-split #dots{left:75%}
+  body.on-accent #dots button{background:rgba(255,255,255,.42)}
+  body.on-accent #dots button.active{background:#fff}
+  body.on-dark #dots button{background:rgba(255,255,255,.34)}
+  body.on-dark #dots button.active{background:var(--accent-bright)}
+</style>
+</head>
+<body>
+<main id="deck">
+<!-- SLIDES_HERE -->
+</main>
+<nav id="dots" aria-label="Slides"></nav>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const deck = document.getElementById('deck');
+  const dots = document.getElementById('dots');
+  let index = 0;
+  deck.style.width = (slides.length * 100) + 'vw';
+  slides.forEach((_, n) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Slide ' + (n + 1));
+    button.addEventListener('click', () => go(n));
+    dots.appendChild(button);
+  });
+  function go(n) {
+    index = Math.max(0, Math.min(slides.length - 1, n));
+    deck.style.transform = 'translateX(' + (-index * 100) + 'vw)';
+    [...dots.children].forEach((dot, k) => dot.classList.toggle('active', k === index));
+    const slide = slides[index];
+    document.body.classList.toggle('on-accent', slide.classList.contains('accent'));
+    document.body.classList.toggle('on-dark', slide.classList.contains('dark'));
+    document.body.classList.toggle('on-split', slide.classList.contains('split'));
+  }
+  addEventListener('keydown', (event) => {
+    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+      event.preventDefault();
+      go(index + 1);
+    } else if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+      event.preventDefault();
+      go(index - 1);
+    }
+  });
+  go(0);
+</script>
+<!-- swiss-slide · Copyright (c) 2026 nrenvo · MIT License · https://github.com/nrenvo/swiss-slide -->
+</body>
+</html>
